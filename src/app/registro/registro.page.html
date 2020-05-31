@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start" [routerLink]="['/inicio']">
+    <ion-icon name="home"></ion-icon>
+    </ion-buttons>
+    <ion-title>Registro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+<!-- Datos del Propietario-->
+
+<ion-item-divider>
+    <ion-label>
+     Mis Datos
+    </ion-label>
+  </ion-item-divider>  
+
+<ion-item>
+  <ion-label position="stacked">Nombre</ion-label>
+  <ion-input type="text"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Usuario</ion-label>
+  <ion-input type="text"></ion-input>
+</ion-item>
+
+<ion-item>
+  <ion-label position="stacked">Contraseña</ion-label>
+  <ion-input type="password"></ion-input>
+</ion-item>
+
+<!--DATOS DE LA BICI-->
+<ion-item-divider>
+    <ion-label>
+      Caracteristicas Bici
+    </ion-label>
+  </ion-item-divider>
+
+<ion-item>
+  <ion-label position="stacked">Marca</ion-label>
+  <ion-input type="text"></ion-input>
+</ion-item>
+<ion-item>
+    <ion-label position="fixed" >Gama</ion-label>
+    <ion-input > 
+      <ion-select value=" " okText="Ok" cancelText="Cancelar">
+      <ion-select-option value="Alta">Alta</ion-select-option>
+      <ion-select-option value="Media">Media</ion-select-option>
+      <ion-select-option value="Baja">Baja</ion-select-option>
+      </ion-select>
+    </ion-input> 
+  </ion-item>
+
+
+
+<!-- Guardar Informacion Anterior -->
+<ion-button expand="full" > Guardar </ion-button>
+
+
+</ion-content>

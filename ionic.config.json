@@ -1,0 +1,7 @@
+{
+  "name": "bici",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "angular"
+}
