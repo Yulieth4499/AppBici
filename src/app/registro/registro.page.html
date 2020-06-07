@@ -18,16 +18,16 @@
 
 <ion-item>
   <ion-label position="stacked">Nombre</ion-label>
-  <ion-input type="text"></ion-input>
+  <ion-input id="Nombre" type="text"></ion-input>
 </ion-item>
 
 <ion-item>
   <ion-label position="stacked">Usuario</ion-label>
-  <ion-input type="text"></ion-input>
+  <ion-input  id="Usuario" type="text"></ion-input>
 </ion-item>
 
 <ion-item>
-  <ion-label position="stacked">Contraseña</ion-label>
+  <ion-label id="Pass" position="stacked">Contraseña</ion-label>
   <ion-input type="password"></ion-input>
 </ion-item>
 
@@ -40,12 +40,12 @@
 
 <ion-item>
   <ion-label position="stacked">Marca</ion-label>
-  <ion-input type="text"></ion-input>
+  <ion-input  id= "Marca" type="text"></ion-input>
 </ion-item>
 <ion-item>
     <ion-label position="fixed" >Gama</ion-label>
-    <ion-input > 
-      <ion-select value=" " okText="Ok" cancelText="Cancelar">
+    <ion-input id="saveServer"> 
+      <ion-select value=" Hola" okText="Ok" cancelText="Cancelar">
       <ion-select-option value="Alta">Alta</ion-select-option>
       <ion-select-option value="Media">Media</ion-select-option>
       <ion-select-option value="Baja">Baja</ion-select-option>
@@ -56,7 +56,10 @@
 
 
 <!-- Guardar Informacion Anterior -->
-<ion-button expand="full" > Guardar </ion-button>
-
+<ion-button expand="full" (click)="saveData()"> Guardar </ion-button>
+<ion-button expand="full" (click)="presentAlert()"> Alerta </ion-button>
 
 </ion-content>
+
+
+<!-- Funciones-->
