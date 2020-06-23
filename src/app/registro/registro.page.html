@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start" [routerLink]="['/inicio']">
+    <ion-buttons slot="start" [routerLink]="['/login']">
     <ion-icon name="home"></ion-icon>
     </ion-buttons>
     <ion-title>Registro</ion-title>
@@ -18,18 +18,19 @@
 
 <ion-item>
   <ion-label position="stacked">Nombre</ion-label>
-  <ion-input id="Nombre" type="text"></ion-input>
+  <ion-input id="Nombre" type="text"  [(ngModel)] ="logindata.name" value=""></ion-input>
 </ion-item>
 
 <ion-item>
-  <ion-label position="stacked">Usuario</ion-label>
-  <ion-input  id="Usuario" type="text"></ion-input>
+  <ion-label position="stacked">email</ion-label>
+  <ion-input  id="Usuario" type="text" [(ngModel)]="logindata.username" value=""></ion-input>
 </ion-item>
 
 <ion-item>
-  <ion-label id="Pass" position="stacked">Contraseña</ion-label>
-  <ion-input type="password"></ion-input>
+  <ion-label position="stacked">Contraseña</ion-label>
+  <ion-input  id="pass" type="password" value="" [(ngModel)]="logindata.pass"></ion-input>
 </ion-item>
+
 
 <!--DATOS DE LA BICI-->
 <ion-item-divider>
@@ -40,7 +41,7 @@
 
 <ion-item>
   <ion-label position="stacked">Marca</ion-label>
-  <ion-input  id= "Marca" type="text"></ion-input>
+  <ion-input  id= "Marca" type="text"  ></ion-input>
 </ion-item>
 <ion-item>
     <ion-label position="fixed" >Gama</ion-label>
@@ -57,7 +58,8 @@
 
 <!-- Guardar Informacion Anterior -->
 <ion-button expand="full" (click)="saveData()"> Guardar </ion-button>
-<ion-button expand="full" (click)="presentAlert()"> Alerta </ion-button>
+
+<ion-button expand="full" (click)="testClick()"> Prueba</ion-button>
 
 </ion-content>
 
