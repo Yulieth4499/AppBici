@@ -21,7 +21,7 @@ export class RegistroPage implements OnInit {
   nombre: string = ""; 
   email: string = ""; 
   pass: string = ""; 
-  fnacim: string = ""; 
+  edad: string = ""; 
   genero: string = ""; 
   usobici: string = ""; 
 
@@ -54,7 +54,7 @@ export class RegistroPage implements OnInit {
      else if(this.genero==""){
        this.presentToast('Los Datos estan incompletos'); 
      }
-     else if(this.fnacim==""){
+     else if(this.edad==""){
        this.presentToast('Los Datos estan incompletos'); 
      }
       else if(this.usobici==""){
@@ -71,7 +71,7 @@ export class RegistroPage implements OnInit {
              nombre: this.nombre,
              email: this.email,
              pass: this.pass,
-             fnacim: this.fnacim,
+             edad: this.edad,
              genero: this.genero,
              usobici: this.usobici
             }

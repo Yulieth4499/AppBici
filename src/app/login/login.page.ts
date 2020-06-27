@@ -3,10 +3,12 @@ import { Storage } from '@ionic/storage';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
 import * as $ from "jquery";
-import {NavController, AlertController} from '@ionic/angular'
+import {NavController, AlertController} from '@ionic/angular';
+import { Router, ActivatedRoute} from '@angular/router';
 import { Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import 'rxjs/add/operator/map';
+import { ToastController, LoadingController} from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,8 @@ import 'rxjs/add/operator/map';
 export class LoginPage implements OnInit {
  logindat= { email: '', passw: '' };
 
-  constructor(private storage: Storage,public alertController: AlertController , public navCtrl: NavController, public http: Http) { }
+  constructor(private storage: Storage,public alertController: AlertController , public navCtrl: NavController, public http: Http, private router : Router , private toastCtrl : ToastController,
+  private loadingCtrl : LoadingController) { }
 
   loginin(){
   if(this.logindat.email !="" && this.logindat.passw !=""){
@@ -33,6 +36,13 @@ export class LoginPage implements OnInit {
   .subscribe(data =>{
 
      console.log(data);
+     if (data==null){
+           this.presentToast('Usuario / Contraseña Incorrectos');
+          }
+          else{
+          
+          this.router.navigate(['/inicio']); 
+          }
   })
 
   }
@@ -41,5 +51,13 @@ export class LoginPage implements OnInit {
 
   ngOnInit() {
   }
+  async presentToast(a){
+    const toast = await this.toastCtrl.create({
+    message: a, 
+    duration: 1500,
+    position: 'top'
+    }); 
+    toast.present();
+    }
 
 }
