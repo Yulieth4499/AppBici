@@ -5,6 +5,12 @@ import { Subscription } from 'rxjs/Subscription';
 import * as $ from "jquery";
 import {NavController, AlertController} from '@ionic/angular'
 
+import { Router, ActivatedRoute} from '@angular/router'
+import { ToastController, LoadingController} from '@ionic/angular'
+import { Http } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
+import { AccessProviders } from '../providers/access-providers';
+import 'rxjs/add/operator/map';
 
 @Component({
   selector: 'app-registro',
@@ -12,62 +18,111 @@ import {NavController, AlertController} from '@ionic/angular'
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
+  nombre: string = ""; 
+  email: string = ""; 
+  pass: string = ""; 
+  fnacim: string = ""; 
+  genero: string = ""; 
+  usobici: string = ""; 
+
+  disableButton; 
+
+  constructor(private storage: Storage,
+  private router : Router,
+  private toastCtrl : ToastController,
+  private loadingCtrl : LoadingController, 
+  public alertCtrl: AlertController , public navCtrl: NavController,
+  private accsPrvds: AccessProviders,public http: Http) { }
+
   
-   logindata= { name: '', pass: '' , username : ''};
-
-
-  constructor(private storage: Storage,public alertController: AlertController , public navCtrl: NavController) { }
-
-  testClick(){
-   console.log("nombre: ", this.logindata.name);
-   console.log("usuario: ", this.logindata.username);
-   console.log("pass: ", this.logindata.pass);
-  }
-  
-  saveData(){
-  this.storage.set('name', $("#Nombre").val() ); 
-  this.storage.set('usuario', $("#Usuario").val() ); 
-  this.storage.set('pass', $("#pass").val() ); 
-  this.storage.set('Marca', $("#Marca").val() ); 
-  console.log(' Hola soy ' ,$("#Nombre").val(),'Mi usuario es',$("#Usuario").val() ,'Contraseña',$("#pass").val(),$("#Marca").val());
-  }
-  getData(){
-  console.log($("#Nombre").val());
-  this.storage.get('name').then((val) => {
-    console.log('Your age is', val);
-  });
-  }
-
-  async presentAlert() {
-  const alert = await this.alertController.create({
-    header: 'Confirmacion',
-    subHeader: '',
-    message: '¿Registrar estos datos en miBici?',
-    buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: (blah) => {
-            console.log('Confirm Cancel: blah');
-          }
-        }, {
-          text: 'Okay',
-          handler: () => {
-            console.log('Confirm Okay');
-           }
-        }
-      ] ,
-  });
-
-  await alert.present();
-  let result = await alert.onDidDismiss();
-  console.log(result);
-}
-
-
 
   ngOnInit() {
   }
 
+  ionViewDidEnter(){
+  this.disableButton =false;
+  }
+
+  async register(){
+     if(this.nombre==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     } else if(this.email==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     } else if(this.pass==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     }
+     else if(this.genero==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     }
+     else if(this.fnacim==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     }
+      else if(this.usobici==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     }else{
+     this.disableButton = true; 
+     const loader = await this.loadingCtrl.create({
+     message: 'Espere...',     });
+     loader.present();
+
+     return new Promise(resolve=>{
+        let body={
+             aksi: 'proses_register',
+             nombre: this.nombre,
+             email: this.email,
+             pass: this.pass,
+             fnacim: this.fnacim,
+             genero: this.genero,
+             usobici: this.usobici
+            }
+          this.accsPrvds.postData(body,'proses-api.php').subscribe((res: any)=>{
+          console.log(body);
+          if (res.success==true){
+          loader.dismiss(); 
+          this.disableButton=false; 
+          this.presentToast(res.msg); 
+          this.router.navigate(['/login']);
+          }
+          else{
+          loader.dismiss(); 
+          this.disableButton = false; 
+          this.presentToast(res.msg); 
+          }
+          });
+     });
+     }
+
+    }
+
+    async presentToast(a){
+    const toast = await this.toastCtrl.create({
+    message: a, 
+    duration: 1500,
+    position: 'top'
+    }); 
+    toast.present();
+    }
+
+
+    async presentAlert(a) {
+    const alert = await this.alertCtrl.create({
+      header: a,
+      backdropDismiss: false,
+      buttons: [
+        {
+          text: 'Cerrar',
+          handler: (blah) => {
+            console.log('Confirm Cancel: blah');
+          }
+        }, {
+          text: 'Registrar',
+          handler: () => {
+          console.log('Confirm Cancel: no funciona');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 }

@@ -11,6 +11,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import { IonicStorageModule } from '@ionic/storage'; 
 import { AlertController } from '@ionic/angular'
+import { AccessProviders } from './providers/access-providers';
 
 
 import { AppComponent } from './app.component';
@@ -32,6 +33,7 @@ import { AppRoutingModule } from './app-routing.module';
     StatusBar,
     SplashScreen,
     Geolocation,
+    AccessProviders,
     AlertController,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],

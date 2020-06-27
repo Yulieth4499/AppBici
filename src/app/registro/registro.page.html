@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-buttons slot="start" [routerLink]="['/login']">
-    <ion-icon name="home"></ion-icon>
+    <ion-icon name="enter-outline"></ion-icon>
     </ion-buttons>
     <ion-title>Registro</ion-title>
   </ion-toolbar>
@@ -18,21 +18,43 @@
 
 <ion-item>
   <ion-label position="stacked">Nombre</ion-label>
-  <ion-input id="Nombre" type="text"  [(ngModel)] ="logindata.name" value=""></ion-input>
+  <ion-input id="Nombre" type="text"  [(ngModel)] ="nombre" value=""></ion-input>
 </ion-item>
+
 
 <ion-item>
   <ion-label position="stacked">email</ion-label>
-  <ion-input  id="Usuario" type="text" [(ngModel)]="logindata.username" value=""></ion-input>
+  <ion-input  id="Usuario" type="text" [(ngModel)] ="email" value=""></ion-input>
 </ion-item>
 
 <ion-item>
   <ion-label position="stacked">Contraseña</ion-label>
-  <ion-input  id="pass" type="password" value="" [(ngModel)]="logindata.pass"></ion-input>
+  <ion-input  id="pass" type="password" value="" [(ngModel)] ="pass"></ion-input>
 </ion-item>
 
+<ion-item>
+  <ion-label  position="stacked" >Edad </ion-label>
+  <ion-input type="text" [(ngModel)] ="fnacim"></ion-input>
+</ion-item>
 
-<!--DATOS DE LA BICI-->
+<ion-item>
+    <ion-label position="stacked" >Genero</ion-label>
+    <ion-select [(ngModel)] ="genero" type="text">
+      <ion-select-option  value="f">Mujer</ion-select-option>
+      <ion-select-option value="m">Hombre</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item>
+    <ion-label position="stacked" >Principal Uso Bici</ion-label>
+    <ion-select [(ngModel)] ="usobici" type="text">
+      <ion-select-option value="transp">MedioTransporte</ion-select-option>
+      <ion-select-option value="deport">Deporte</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+<!--DATOS DE LA BICI
 <ion-item-divider>
     <ion-label>
       Caracteristicas Bici
@@ -53,13 +75,12 @@
       </ion-select>
     </ion-input> 
   </ion-item>
-
+-->
 
 
 <!-- Guardar Informacion Anterior -->
-<ion-button expand="full" (click)="saveData()"> Guardar </ion-button>
+<ion-button expand="full" (click)="register()"  [disabled]="disableButton"> Guardar </ion-button>
 
-<ion-button expand="full" (click)="testClick()"> Prueba</ion-button>
 
 </ion-content>
 
