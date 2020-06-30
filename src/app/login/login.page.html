@@ -5,6 +5,11 @@
 </ion-header>
 
 <ion-content>
+  <div class="list card">
+  <div class= "item item-body">
+  <img class="full-image" src="assets/logobici.jpg">
+  </div>
+  </div>
 <ion-item>
   <ion-label position="stacked">email</ion-label>
   <ion-input  type="text" [(ngModel)]="logindat.email" value=""></ion-input>
@@ -12,11 +17,17 @@
 
 <ion-item>
   <ion-label position="stacked">Contraseña</ion-label>
-  <ion-input  type="password" value="" [(ngModel)]="logindat.passw"></ion-input>
+  <ion-input  type="text" value="" [(ngModel)]="logindat.passw"></ion-input>
 </ion-item>
  
  <ion-button expand="full" fill="outline" (click)="loginin()">
     Iniciar
+ </ion-button>
+ <ion-button expand="full" fill="outline" (click)="Conexionhttp()">
+    http
+ </ion-button>
+ <ion-button expand="full" fill="outline" (click)="httpRequest()">
+    httpRequest
  </ion-button>
 
 <ion-button expand="full" fill="outline" [routerLink]="['/registro']">

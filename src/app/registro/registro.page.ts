@@ -43,7 +43,30 @@ export class RegistroPage implements OnInit {
   this.disableButton =false;
   }
 
-  async register(){
+   async register(){
+   if(this.nombre==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     } else if(this.email==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     } else if(this.pass==""){
+       this.presentToast('Los Datos estan incompletos'); 
+     }
+   console.log('Estamos Registrando');
+  let url1: string ="http://aulal.org:1880/login" ; 
+  let dataPost1= {
+                        user: this.nombre,
+                        email:this.email,
+                        pass: this.pass
+                        };
+  this.http.post(url1,dataPost1)
+  .map(res=>res.text())
+  .subscribe(data =>{
+
+     console.log(data);
+     
+  })
+   }
+  /*async register(){
      if(this.nombre==""){
        this.presentToast('Los Datos estan incompletos'); 
      } else if(this.email==""){
@@ -92,7 +115,7 @@ export class RegistroPage implements OnInit {
      });
      }
 
-    }
+    }*/
 
     async presentToast(a){
     const toast = await this.toastCtrl.create({

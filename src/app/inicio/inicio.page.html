@@ -9,14 +9,15 @@
 </ion-header>
 
 <ion-content>
-Hola Alejandra
-   <ion-button expand="full" fill="outline">
+Hola 
+   <ion-button expand="full" fill="outline" [routerLink]="['/rutas']">
       <ion-icon slot="start" name="bicycle"></ion-icon>
-      A donde vamos?
-   </ion-button>
-   <ion-button expand="block" fill="outline">Como estuvo mi dia
+     ¿ A donde vamos?
    </ion-button>
 
-  
+   <ion-button expand="block" fill="outline" [routerLink]="['/salud']">
+     <ion-icon slot="start" name="analytics"></ion-icon>¿Como estuvo mi dia?
+   </ion-button>
+
 </ion-content>
 

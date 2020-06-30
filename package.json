@@ -1,4 +1,4 @@
-{ 
+{
   "name": "bici",
   "version": "0.0.1",
   "author": "Ionic Framework",
@@ -33,6 +33,7 @@
     "ionic-angular": "^3.9.10",
     "ionic-mqtt": "^1.1.5",
     "jquery": "^3.5.1",
+    "ngx-mqtt": "^6.13.3",
     "rxjs": "^6.5.5",
     "rxjs-compat": "^6.5.5",
     "tslib": "^1.10.0",

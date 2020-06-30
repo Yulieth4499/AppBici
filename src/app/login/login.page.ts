@@ -45,8 +45,52 @@ export class LoginPage implements OnInit {
           }
   })
 
+
   }
   else{console.log("Ingrese Nuevamente");}
+  }
+  
+  Conexionhttp(){
+  let url1: string ="http://aulal.org:1880/login" ; 
+  let dataPost1= {
+                        user: this.logindat.email,
+                        pass: this.logindat.passw
+                        };
+  this.http.post(url1,dataPost1)
+  .map(res=>res.text())
+  .subscribe(data =>{
+
+     console.log(data);
+     if (data==null){
+           this.presentToast('Usuario / Contraseña Incorrectos');
+          }
+          else{
+          
+          this.router.navigate(['/inicio']); 
+          }
+     
+  })
+  }
+  httpRequest(){
+  let url1: string ="http://aulal.org:1880/login" ; 
+  let dataPost1= {
+                        user: this.logindat.email,
+                        pass: this.logindat.passw
+                        };
+  this.http.post(url1,dataPost1)
+  .map(res=>res.text())
+  .subscribe(data =>{
+
+     console.log(data);
+     if (data==null){
+           this.presentToast('Usuario / Contraseña Incorrectos');
+          }
+          else{
+          
+          this.router.navigate(['/inicio']); 
+          }
+     
+  })
   }
 
   ngOnInit() {
