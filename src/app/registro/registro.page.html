@@ -20,6 +20,10 @@
   <ion-label position="stacked">Nombre</ion-label>
   <ion-input id="Nombre" type="text"  [(ngModel)] ="nombre" value=""></ion-input>
 </ion-item>
+<ion-item>
+  <ion-label position="stacked">Apellido</ion-label>
+  <ion-input id="Nombre" type="text"  [(ngModel)] ="apellido" value=""></ion-input>
+</ion-item>
 
 
 <ion-item>
@@ -36,14 +40,6 @@
   <ion-label  position="stacked" >Edad </ion-label>
   <ion-input type="text" [(ngModel)] ="edad"></ion-input>
 </ion-item>
-
-<ion-item>
-    <ion-label position="stacked" >Genero</ion-label>
-    <ion-select [(ngModel)] ="genero" type="text">
-      <ion-select-option  value="f">Mujer</ion-select-option>
-      <ion-select-option value="m">Hombre</ion-select-option>
-    </ion-select>
-  </ion-item>
 
   <ion-item>
     <ion-label position="stacked" >Principal Uso Bici</ion-label>
@@ -79,8 +75,7 @@
 
 
 <!-- Guardar Informacion Anterior -->
-<ion-button expand="full" (click)="register()"  [disabled]="disableButton"> Guardar </ion-button>
-
+<ion-button expand="full" (click)="register()"  [disabled]="disableButton"> Registrar </ion-button>
 
 </ion-content>
 

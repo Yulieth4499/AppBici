@@ -10,6 +10,7 @@ import { ToastController, LoadingController} from '@ionic/angular'
 import { Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { AccessProviders } from '../providers/access-providers';
+import { DataService } from '../service/data.service';
 import 'rxjs/add/operator/map';
 
 @Component({
@@ -19,10 +20,10 @@ import 'rxjs/add/operator/map';
 })
 export class RegistroPage implements OnInit {
   nombre: string = ""; 
+  apellido: string ="";
   email: string = ""; 
   pass: string = ""; 
   edad: string = ""; 
-  genero: string = ""; 
   usobici: string = ""; 
 
   disableButton; 
@@ -32,9 +33,7 @@ export class RegistroPage implements OnInit {
   private toastCtrl : ToastController,
   private loadingCtrl : LoadingController, 
   public alertCtrl: AlertController , public navCtrl: NavController,
-  private accsPrvds: AccessProviders,public http: Http) { }
-
-  
+  private accsPrvds: AccessProviders,public http: Http, private dataService: DataService) { }
 
   ngOnInit() {
   }
@@ -51,30 +50,7 @@ export class RegistroPage implements OnInit {
      } else if(this.pass==""){
        this.presentToast('Los Datos estan incompletos'); 
      }
-   console.log('Estamos Registrando');
-  let url1: string ="http://aulal.org:1880/login" ; 
-  let dataPost1= {
-                        user: this.nombre,
-                        email:this.email,
-                        pass: this.pass
-                        };
-  this.http.post(url1,dataPost1)
-  .map(res=>res.text())
-  .subscribe(data =>{
-
-     console.log(data);
-     
-  })
-   }
-  /*async register(){
-     if(this.nombre==""){
-       this.presentToast('Los Datos estan incompletos'); 
-     } else if(this.email==""){
-       this.presentToast('Los Datos estan incompletos'); 
-     } else if(this.pass==""){
-       this.presentToast('Los Datos estan incompletos'); 
-     }
-     else if(this.genero==""){
+     else if(this.apellido==""){
        this.presentToast('Los Datos estan incompletos'); 
      }
      else if(this.edad==""){
@@ -87,35 +63,35 @@ export class RegistroPage implements OnInit {
      const loader = await this.loadingCtrl.create({
      message: 'Espere...',     });
      loader.present();
-
-     return new Promise(resolve=>{
-        let body={
-             aksi: 'proses_register',
-             nombre: this.nombre,
-             email: this.email,
-             pass: this.pass,
-             edad: this.edad,
-             genero: this.genero,
-             usobici: this.usobici
-            }
-          this.accsPrvds.postData(body,'proses-api.php').subscribe((res: any)=>{
-          console.log(body);
-          if (res.success==true){
+   console.log('Estamos Registrando');
+  let url1: string ="http://aulal.org:1880/login" ; 
+  let dataPost1= {
+                        user: this.nombre,
+                        email:this.email,
+                        pass: this.pass, 
+                        apellido: this.apellido,
+                        edad: this.edad,
+                        uso: this.usobici
+                        };
+  this.http.post(url1,dataPost1)
+  .subscribe((res: any)=>{
+     loader.dismiss(); 
+     console.log(res.status);
+     if (res.status==200){
+         this.presentToast('Registro Exitoso');
+          this.router.navigate(['/login']); 
+          this.disableButton=false;
           loader.dismiss(); 
-          this.disableButton=false; 
-          this.presentToast(res.msg); 
-          this.router.navigate(['/login']);
+           
           }
           else{
-          loader.dismiss(); 
-          this.disableButton = false; 
-          this.presentToast(res.msg); 
+          this.presentToast('Vuelve a intentarlo');
           }
-          });
-     });
-     }
-
-    }*/
+     
+  })
+   }
+   }
+  
 
     async presentToast(a){
     const toast = await this.toastCtrl.create({
@@ -148,4 +124,5 @@ export class RegistroPage implements OnInit {
 
     await alert.present();
   }
+ 
 }

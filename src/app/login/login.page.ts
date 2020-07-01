@@ -9,6 +9,7 @@ import { Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { ToastController, LoadingController} from '@ionic/angular';
+import { DataService } from '../service/data.service';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +20,7 @@ export class LoginPage implements OnInit {
  logindat= { email: '', passw: '' };
 
   constructor(private storage: Storage,public alertController: AlertController , public navCtrl: NavController, public http: Http, private router : Router , private toastCtrl : ToastController,
-  private loadingCtrl : LoadingController) { }
+  private loadingCtrl : LoadingController,private dataService: DataService) { }
 
   loginin(){
   if(this.logindat.email !="" && this.logindat.passw !=""){
@@ -51,47 +52,26 @@ export class LoginPage implements OnInit {
   }
   
   Conexionhttp(){
-  let url1: string ="http://aulal.org:1880/login" ; 
+  let url1: string ="http://aulal.org:1880/sesion" ; 
   let dataPost1= {
                         user: this.logindat.email,
                         pass: this.logindat.passw
                         };
   this.http.post(url1,dataPost1)
-  .map(res=>res.text())
-  .subscribe(data =>{
+  .subscribe((res: any)=>{
 
-     console.log(data);
-     if (data==null){
+     console.log(res);
+     /*if (data==null){
            this.presentToast('Usuario / Contraseña Incorrectos');
           }
           else{
           
           this.router.navigate(['/inicio']); 
-          }
+          }*/
      
   })
   }
-  httpRequest(){
-  let url1: string ="http://aulal.org:1880/login" ; 
-  let dataPost1= {
-                        user: this.logindat.email,
-                        pass: this.logindat.passw
-                        };
-  this.http.post(url1,dataPost1)
-  .map(res=>res.text())
-  .subscribe(data =>{
 
-     console.log(data);
-     if (data==null){
-           this.presentToast('Usuario / Contraseña Incorrectos');
-          }
-          else{
-          
-          this.router.navigate(['/inicio']); 
-          }
-     
-  })
-  }
 
   ngOnInit() {
   }
