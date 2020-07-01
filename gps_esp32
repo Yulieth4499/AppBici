@@ -1,0 +1,121 @@
+#include <TinyGPS++.h>
+#include <SoftwareSerial.h>
+
+// Librerias de wifi y http
+#include <ESP8266WiFi.h>
+#include <ESP8266HTTPClient.h>
+#include <WiFiClient.h>
+
+// Credenciales para conectarse al wifi
+const char* ssid = "HOME MADRID";
+const char* password = "8209920mama*";
+
+// nombre del dominio o direccion IP
+
+const char* serverName = "http://192.168.0.211:1880/gps_data";
+
+String apiKeyValue = "tPmAT5Ab3j7F9";
+
+
+//#define RXPin 27
+//#define TXPin 26
+
+static const int RXPin = 4, TXPin = 5;
+static const uint32_t GPSBaud = 9600;
+uint8_t hora, mes, dia;
+uint16_t anio;
+char data = 0;
+int id_usuarios = 1;
+
+
+TinyGPSPlus gps;
+
+// The serial connection to the GPS device
+//HardwareSerial SerialGPS(1);
+SoftwareSerial ss(RXPin, TXPin);
+
+/* variables del gps
+String latitud = gps.location.lat(), 5;
+String longitud = gps.location.lng(), 5;
+String altitud = gps.altitude.meters();
+String rapidez = gps.speed.mps(),3;
+*/
+
+void setup() {
+
+  // put your setup code here, to run once:
+    
+  Serial.begin(115200);
+  WiFi.begin(ssid, password);
+  Serial.println("Conectando al wifi...");
+  while(WiFi.status() != WL_CONNECTED){
+
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.print("Conectado a la red wifi con direccion IP: ");
+  Serial.println(WiFi.localIP());
+  
+  ss.begin(GPSBaud);
+  
+  
+}
+
+void loop() {
+
+  //Revisando el status del wifi
+
+  if(WiFi.status() == WL_CONNECTED){
+
+    HTTPClient http;
+    http.begin(serverName);
+    http.addHeader("Content-Type","application/x-www-form-urlencoded");
+  
+  
+  // put your main code here, to run repeatedly:
+  while (ss.available()>0){
+    
+    gps.encode(ss.read());
+    if(gps.location.isUpdated()){
+      //Serial.print("Latitud= ");
+      Serial.print(gps.location.lat(), 5);
+      Serial.print(" , ");
+      Serial.print(gps.location.lng(), 5);
+      Serial.print(" , ");
+      Serial.print(gps.altitude.meters());
+      Serial.print(" , ");
+      Serial.print(gps.speed.mps(),3);
+      Serial.print(" , ");
+      
+    }
+
+    String httpRequestData = "api_key="+apiKeyValue+"&id_usuarios="+id_usuarios+"&latitud"+String(gps.location.lat(), 5)+"&longitud"+String(gps.location.lng(), 5)+"&rapidez"+String(gps.speed.mps(),3)+"";
+    Serial.print("httpRequestData: ");
+    Serial.println(httpRequestData);
+    
+    //enviar peticion del post
+
+    int httpResponseCode = http.POST(httpRequestData);
+
+    if(httpResponseCode>0){
+
+      Serial.print("HTTP response code: ");
+      Serial.println(httpResponseCode);
+    }
+    else{
+
+      Serial.print("Error code: ");
+      Serial.println(httpResponseCode);
+    }
+
+    http.end();
+   
+  }
+  }
+  else{
+
+    Serial.println("wifi desconectado...");
+  }
+  //enviar datos cada medio segundo
+  delay(1000);
+}
