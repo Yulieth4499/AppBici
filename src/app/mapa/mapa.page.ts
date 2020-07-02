@@ -10,14 +10,20 @@ declare var google;
   styleUrls: ['./mapa.page.scss'],
 })
 export class MapaPage implements OnInit {
+ 
+  directionsService = new google.maps.DirectionsService();
+  directionsDisplay = new google.maps.DirectionsRenderer();
+
+  destination = { lat: 4.676802158355713, lng: -74.04825592041016 };
+  origin;
 
  constructor(
-  	private geolocation: Geolocation,
+    private geolocation: Geolocation,
     private loadingCtrl: LoadingController
-  	) {}
+    ) {}
 
   ngOnInit(){
-  	this.loadMap();
+    this.loadMap();
   }
 
   async loadMap(){
@@ -27,32 +33,45 @@ export class MapaPage implements OnInit {
     
 
     const rta= await this.geolocation.getCurrentPosition();
-    const myLatLng = {
-       lat: rta.coords.latitude,
-       lng: rta.coords.longitude
-    };
-    console.log(myLatLng);
+    this.origin = { 
+        lat: rta.coords.latitude, 
+        lng: rta.coords.longitude 
+      };
+    console.log(origin);
     const mapEle: HTMLElement = document.getElementById('map');
     const map= new google.maps.Map(mapEle, {
-    	center: myLatLng,
-    	zoom: 12
+      center: this.destination,
+      zoom: 12
     });
+
+    this.directionsDisplay.setMap(map);
 
     google.maps.event
     .addListenerOnce(map, 'idle', () => {
+    mapEle.classList.add('show-map');  
     loading.dismiss();
-    const marker = new google.maps.Marker({
-       position: {
-         lat: myLatLng.lat,
-         lng: myLatLng.lng
-         },
-      zoom: 8,
-      map: map,
-      title: 'Hello World!'
-    });
+    
+    this.calculateRoute();
     
   });
 
   }
+
+     calculateRoute(){
+
+  this.directionsService.route({
+    origin: this.origin,
+    destination: this.destination,
+    travelMode: google.maps.TravelMode.DRIVING,
+  }, (response, status)  => {
+    if (status === google.maps.DirectionsStatus.OK) {
+      this.directionsDisplay.setDirections(response);
+    } else {
+      alert('Could not display directions due to: ' + status);
+    }
+  });
+
+  } 
+
 
 }
