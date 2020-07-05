@@ -9,6 +9,8 @@ import { Http } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { ToastController, LoadingController} from '@ionic/angular';
+import { DataService } from '../service/data.service';
+import { GlobalService } from '../global.service';
 
 @Component({
   selector: 'app-login',
@@ -19,79 +21,39 @@ export class LoginPage implements OnInit {
  logindat= { email: '', passw: '' };
 
   constructor(private storage: Storage,public alertController: AlertController , public navCtrl: NavController, public http: Http, private router : Router , private toastCtrl : ToastController,
-  private loadingCtrl : LoadingController) { }
+  private loadingCtrl : LoadingController, public global: GlobalService) { }
 
+ 
+  
   loginin(){
   if(this.logindat.email !="" && this.logindat.passw !=""){
-  console.log("email: ", this.logindat.email);
-  console.log("contraseña: ", this.logindat.passw);
-
-  let url: string ="http://localhost/bici/login.php" ; 
-  let dataPost = JSON.stringify({
+  let url1: string ="http://127.0.0.1:1880/consulta" ; 
+  let dataPost1= {
                         user: this.logindat.email,
                         pass: this.logindat.passw
-                        });
-  this.http.post(url,dataPost)
+                        };
+  this.http.post(url1,dataPost1)
   .map(res=>res.json())
   .subscribe(data =>{
+    console.log(data);
+    console.log(data.id); 
 
-     console.log(data);
-     if (data==null){
-           this.presentToast('Usuario / Contraseña Incorrectos');
+        if (data==null){
+           this.presentToast('Datos Incompletos');
+           
           }
           else{
-          
-          this.router.navigate(['/inicio']); 
+          this.presentToast('Bienvenido')
+          this.router.navigate(['/inicio']);
+          this.global.nameActive=data.nombre; 
+          this.global.lockActive=data.candado; 
           }
-  })
-
-
-  }
-  else{console.log("Ingrese Nuevamente");}
+      })
+      }
+  else{this.presentToast('Datos Incompletos');}
   }
   
-  Conexionhttp(){
-  let url1: string ="http://aulal.org:1880/login" ; 
-  let dataPost1= {
-                        user: this.logindat.email,
-                        pass: this.logindat.passw
-                        };
-  this.http.post(url1,dataPost1)
-  .map(res=>res.text())
-  .subscribe(data =>{
 
-     console.log(data);
-     if (data==null){
-           this.presentToast('Usuario / Contraseña Incorrectos');
-          }
-          else{
-          
-          this.router.navigate(['/inicio']); 
-          }
-     
-  })
-  }
-  httpRequest(){
-  let url1: string ="http://aulal.org:1880/login" ; 
-  let dataPost1= {
-                        user: this.logindat.email,
-                        pass: this.logindat.passw
-                        };
-  this.http.post(url1,dataPost1)
-  .map(res=>res.text())
-  .subscribe(data =>{
-
-     console.log(data);
-     if (data==null){
-           this.presentToast('Usuario / Contraseña Incorrectos');
-          }
-          else{
-          
-          this.router.navigate(['/inicio']); 
-          }
-     
-  })
-  }
 
   ngOnInit() {
   }

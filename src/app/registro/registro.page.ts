@@ -25,6 +25,7 @@ export class RegistroPage implements OnInit {
   pass: string = ""; 
   edad: string = ""; 
   usobici: string = ""; 
+  prueba:string ="Correcto";
 
   disableButton; 
 
