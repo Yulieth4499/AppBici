@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-title>Iniciar Sesion </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -17,7 +17,7 @@
 
 <ion-item>
   <ion-label position="stacked">Contraseña</ion-label>
-  <ion-input  type="text" value="" [(ngModel)]="logindat.passw"></ion-input>
+  <ion-input  type="password" value="" [(ngModel)]="logindat.passw"></ion-input>
 </ion-item>
 
  <ion-button expand="full" fill="outline" (click)="loginin()">

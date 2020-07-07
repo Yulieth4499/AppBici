@@ -18,35 +18,37 @@ import { GlobalService } from '../global.service';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
- logindat= { email: '', passw: '' };
+ logindat= { email: '', passw: ''};
+ anterior: string; 
 
   constructor(private storage: Storage,public alertController: AlertController , public navCtrl: NavController, public http: Http, private router : Router , private toastCtrl : ToastController,
   private loadingCtrl : LoadingController, public global: GlobalService) { }
 
- 
+  
   
   loginin(){
   if(this.logindat.email !="" && this.logindat.passw !=""){
-  let url1: string ="http://127.0.0.1:1880/consulta" ; 
+  let url1: string ="http://aulal.org:1880/consulta" ; 
   let dataPost1= {
-                        user: this.logindat.email,
+                        email: this.logindat.email,
                         pass: this.logindat.passw
                         };
   this.http.post(url1,dataPost1)
   .map(res=>res.json())
   .subscribe(data =>{
     console.log(data);
-    console.log(data.id); 
-
-        if (data==null){
+     console.log(data.id_usuarios);
+        if (data.id_usuarios==""){
            this.presentToast('Datos Incompletos');
            
           }
           else{
           this.presentToast('Bienvenido')
           this.router.navigate(['/inicio']);
-          this.global.nameActive=data.nombre; 
-          this.global.lockActive=data.candado; 
+         this.global.nameActive=data.nombre; 
+         this.global.iduserActive=data.id_usuarios; 
+         this.storage.set('session',data.nombre );
+         this.storage.set('iduser',data.id_usuarios );
           }
       })
       }
@@ -56,11 +58,24 @@ export class LoginPage implements OnInit {
 
 
   ngOnInit() {
+   this.storage.get('iduser').then((val) => {
+    this.global.iduserActive=val;
+    });
+  this.storage.get('session').then((val) => {
+    console.log(val);
+    if(val==null){
+    console.log("Continua");
+    }
+    else{
+    this.router.navigate(['/inicio']);
+    this.global.nameActive=val;
+    }});
+   
   }
   async presentToast(a){
     const toast = await this.toastCtrl.create({
     message: a, 
-    duration: 1500,
+    duration: 1200,
     position: 'top'
     }); 
     toast.present();

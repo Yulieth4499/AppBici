@@ -3,21 +3,29 @@
     <ion-buttons slot="start">
     <ion-menu-button></ion-menu-button>
     </ion-buttons>
+    <ion-buttons slot="end" (click)="cerrarsesion()">
+    <ion-icon name="enter-outline"> Salir</ion-icon>
+    </ion-buttons>
     <ion-title>Inicio</ion-title>
   </ion-toolbar>
 
 </ion-header>
 
 <ion-content>
-     Hola {{ global.nameActive }}
-    <ion-button expand="full" fill="outline" [routerLink]="['/rutas']">
+<ion-card>
+    <ion-text color="secondary">
+  <h1>Hola {{ global.nameActive }}</h1>
+</ion-text>
+    
+    <ion-button expand="block" fill="outline" size="medium" [routerLink]="['/rutas']">
     <ion-icon slot="start" name="bicycle"></ion-icon>
      ¿ A donde vamos?
    </ion-button>
 
-   <ion-button expand="block" fill="outline" [routerLink]="['/salud']">
+   <ion-button expand="block" fill="outline" size="medium" [routerLink]="['/salud']">
      <ion-icon slot="start" name="analytics"></ion-icon>¿Como estuvo mi dia?
    </ion-button>
-
-</ion-content>
+   
+</ion-card>
+ </ion-content>
 
