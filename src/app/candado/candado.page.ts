@@ -20,7 +20,7 @@ import { GlobalService } from '../global.service';
 export class CandadoPage implements OnInit {
 
   constructor(public global: GlobalService) { }
-   anterior: string ;
+   imagen: string="assets/candclose.jpg" ;
 
   ngOnInit() {
 

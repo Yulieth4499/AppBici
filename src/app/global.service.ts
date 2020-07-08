@@ -9,6 +9,9 @@ export class GlobalService {
   public nameActive: string;
   public iduserActive: string; 
   public lockActive: string;
-  public candActive: String; 
-  public fechacandActive: String; 
+  public candActive: string; 
+  public fechacandActive: string; 
+  public estCanActive: string;
+  public colorEst: string;
+  public imgCand: string; 
 }

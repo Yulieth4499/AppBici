@@ -11,7 +11,12 @@
 <ion-button expand="full" fill="outline" [routerLink]="['/mapa']">
 	<ion-icon slot="start" name="location"></ion-icon>
    Mi ubicación
-   </ion-button>
+  </ion-button>
+  <ion-item>
+  <ion-icon name="cash" item-start></ion-icon>
+ latitud:
+  <ion-badge item-end>{{latitud}}</ion-badge>
+</ion-item>
 
    <ion-card>
     <ion-card-title>

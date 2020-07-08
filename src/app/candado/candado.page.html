@@ -1,13 +1,16 @@
 <ion-header>
   <ion-toolbar color="primary">
+  	 <ion-buttons slot="start" [routerLink]="['/bicicleta']">
+    <ion-icon name="enter-outline"></ion-icon>
+    </ion-buttons>
     <ion-title>Candado</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <ion-card>
-        <img src="assets/candclose.jpg">
+        <img src="{{this.global.imgCand}}">
     </ion-card>
     <ion-text> Ultima vez : {{this.global.fechacandActive}} </ion-text>
-    <ion-text> Estado : {{this.global.candActive}} \n </ion-text>
-</ion-content>
+    <ion-text color="{{this.global.colorEst}}"> Estado : {{this.global.estCanActive}}  </ion-text>
+</ion-content >

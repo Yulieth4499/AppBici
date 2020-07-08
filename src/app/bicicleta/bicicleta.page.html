@@ -8,17 +8,20 @@
 </ion-header>
 
 <ion-content>
+  
 <ion-card>
         <img src="assets/bici.jpg">
         <ion-card-header>
-          <ion-card-title></ion-card-title>
+        <ion-card-title></ion-card-title>
         </ion-card-header>
         <ion-card-content>
-          Estado Candado: 
-          <ion-button expand="block">
-          <ion-icon slot="start" name="cash"></ion-icon>Tiendas</ion-button>
+          <ion-button expand="block" color="{{setcolor}}" [routerLink]="['/candado']" >{{setestado}}</ion-button>
+          <!--<ion-button expand="block">
+          <ion-icon slot="start" name="cash" color="primary"></ion-icon>Tiendas</ion-button>
           <ion-button expand="block">Parqueaderos</ion-button>
-          <ion-button expand="block" (click)="estadoBici()" [routerLink]="['/candado']">candado</ion-button>
+          <ion-button expand="block" (click)="estadoBici()" [routerLink]="['/candado']">candado</ion-button>-->
+
+          
         </ion-card-content>
       </ion-card>
 </ion-content>
